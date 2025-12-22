@@ -1,4 +1,4 @@
 /node_modules
 /.env
 
-/rountes/api.ts
+/src/routes
