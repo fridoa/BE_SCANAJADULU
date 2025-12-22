@@ -18,7 +18,7 @@ const ProductSchema = new mongoose.Schema<IProduct>({
   stock: { type: Number, required: true },
   category: { type: String, required: false },
   image_url: { type: String, required: false },
-  sku: { type: String, required: true },
+  sku: { type: String, required: true, unique: true, index: true },
 });
 
 const ProductModel = mongoose.model<IProduct>("Product", ProductSchema);

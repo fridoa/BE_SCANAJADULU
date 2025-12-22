@@ -10,6 +10,7 @@ const router = express.Router();
 router.post("/product", productMiddleware.validateCreateProduct, ProductController.create);
 router.get("/products", ProductController.findAll);
 router.get("/product/:id", ProductController.findOne);
+router.get("/product/sku/:sku", ProductController.findBySku);
 router.put("/product/:id", productMiddleware.validateProductUpdate, ProductController.update);
 router.delete("/product/:id", ProductController.remove);
 

@@ -55,6 +55,16 @@ export default {
     }
   },
 
+  async findBySku(req: Request, res: Response) {
+    try {
+      const { sku } = req.params;
+      const result = await ProductModel.findOne({ sku });
+      response.success(res, result, "Product fetched by SKU successfully");
+    } catch (error) {
+      response.error(res, error, "Failed to fetch product by SKU");
+    }
+  },
+
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
