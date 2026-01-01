@@ -14,9 +14,22 @@ export default {
   },
 
   async findAll(req: Request, res: Response) {
-    const { page = 1, limit = 10, search } = req.query as unknown as IPaginationQuery;
+    const { page = 1, limit = 10, search, name, sku } = req.query as unknown as IPaginationQuery;
     try {
       const query: any = {};
+
+      if (name) {
+        Object.assign(query, {
+          name: { $regex: name, $options: "i" },
+        });
+      }
+
+      if (sku) {
+        Object.assign(query, {
+          sku: { $regex: sku, $options: "i" },
+        });
+      }
+
       if (search) {
         Object.assign(query, {
           $or: [
@@ -58,7 +71,7 @@ export default {
   async findBySku(req: Request, res: Response) {
     try {
       const { sku } = req.params;
-      const result = await ProductModel.findOne({ sku });
+      const result = await ProductModel.findOne({ sku: { $regex: new RegExp(`^${sku}$`, "i") } });
       response.success(res, result, "Product fetched by SKU successfully");
     } catch (error) {
       response.error(res, error, "Failed to fetch product by SKU");
